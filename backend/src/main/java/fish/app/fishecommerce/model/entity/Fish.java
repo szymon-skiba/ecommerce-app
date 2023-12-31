@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Table(name="fish")
 @Entity
 public class Fish {
     @Id

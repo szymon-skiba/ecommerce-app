@@ -2,10 +2,11 @@ package fish.app.fishecommerce.controller;
 
 
 import fish.app.fishecommerce.model.dto.FishDTO;
-import fish.app.fishecommerce.model.util.crud.*;
 import fish.app.fishecommerce.model.util.PagedResult;
+import fish.app.fishecommerce.model.util.fish.*;
 import fish.app.fishecommerce.service.FishService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,7 +31,9 @@ public class FishController {
         return ResponseEntity.ok().body(fishService.findAll(findFishQuery));
     }
 
+
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<FishDTO> create(@RequestBody @Validated CreateFishRequest request){
         CreateFishCommand cmd = new CreateFishCommand(
                 request.name(),
@@ -52,6 +55,7 @@ public class FishController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void update(@PathVariable(name="id") Long id,
                 @RequestBody @Validated UpdateFishRequest request){
         UpdateFishCommand cmd = new UpdateFishCommand(
@@ -74,6 +78,7 @@ public class FishController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void delete(@PathVariable(name = "id") Long id) {
         fishService.delete(id);
     }

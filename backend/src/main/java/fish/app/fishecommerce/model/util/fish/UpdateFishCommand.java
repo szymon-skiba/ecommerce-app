@@ -1,6 +1,7 @@
-package fish.app.fishecommerce.model.util.crud;
+package fish.app.fishecommerce.model.util.fish;
 
-public record CreateFishCommand(
+public record UpdateFishCommand(
+        Long id,
         String name,
         Integer price,
         Double weightRangeFrom,

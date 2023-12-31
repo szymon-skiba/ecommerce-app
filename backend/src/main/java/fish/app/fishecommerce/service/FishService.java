@@ -4,10 +4,10 @@ package fish.app.fishecommerce.service;
 import fish.app.fishecommerce.exception.FishNotFoundException;
 import fish.app.fishecommerce.model.dto.FishDTO;
 import fish.app.fishecommerce.model.entity.Fish;
-import fish.app.fishecommerce.model.util.crud.CreateFishCommand;
-import fish.app.fishecommerce.model.util.crud.FindFishQuery;
+import fish.app.fishecommerce.model.util.fish.CreateFishCommand;
+import fish.app.fishecommerce.model.util.fish.FindFishQuery;
 import fish.app.fishecommerce.model.util.PagedResult;
-import fish.app.fishecommerce.model.util.crud.UpdateFishCommand;
+import fish.app.fishecommerce.model.util.fish.UpdateFishCommand;
 import fish.app.fishecommerce.repository.FishRepository;
 
 import org.modelmapper.ModelMapper;

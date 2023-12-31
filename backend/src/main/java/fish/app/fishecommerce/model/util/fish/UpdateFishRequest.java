@@ -1,6 +1,6 @@
-package fish.app.fishecommerce.model.util.crud;
+package fish.app.fishecommerce.model.util.fish;
 
-public record UpdateFishCommand(
+public record UpdateFishRequest(
         Long id,
         String name,
         Integer price,
