@@ -5,14 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
 public class Fish {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Integer price;
@@ -20,7 +19,7 @@ public class Fish {
     private Double weightRangeTo;
     private Double amount;
 
-    @Column(columnDefinition="TEXT")
-    private String description; 
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
 }
