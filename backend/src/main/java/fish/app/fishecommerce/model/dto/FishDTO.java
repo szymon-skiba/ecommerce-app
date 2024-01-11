@@ -10,5 +10,6 @@ public class FishDTO {
     private Double weightRangeFrom;
     private Double weightRangeTo;
     private Double amount;
+    private String location;
     private String description;
 }

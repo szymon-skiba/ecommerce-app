@@ -18,6 +18,7 @@ public class Fish {
     private Double weightRangeFrom;
     private Double weightRangeTo;
     private Double amount;
+    private String location;
 
     @Column(columnDefinition = "TEXT")
     private String description;

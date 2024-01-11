@@ -1,6 +1,5 @@
 package fish.app.fishecommerce.controller;
 
-
 import fish.app.fishecommerce.model.dto.FishDTO;
 import fish.app.fishecommerce.model.util.PagedResult;
 import fish.app.fishecommerce.model.util.fish.*;
@@ -19,30 +18,29 @@ public class FishController {
 
     private final FishService fishService;
 
-    public FishController(FishService fishService){
+    public FishController(FishService fishService) {
         this.fishService = fishService;
     }
 
     @GetMapping()
     public ResponseEntity<PagedResult<FishDTO>> findAll(
-            @RequestParam(name = "page", defaultValue = "1") Integer pageNo,
-            @RequestParam(name = "size", defaultValue = "10") Integer pageSize){
+            @RequestParam(name = "page", defaultValue = "0") Integer pageNo,
+            @RequestParam(name = "size", defaultValue = "10") Integer pageSize) {
         FindFishQuery findFishQuery = new FindFishQuery(pageNo, pageSize);
         return ResponseEntity.ok().body(fishService.findAll(findFishQuery));
     }
 
-
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<FishDTO> create(@RequestBody @Validated CreateFishRequest request){
+    public ResponseEntity<FishDTO> create(@RequestBody @Validated CreateFishRequest request) {
         CreateFishCommand cmd = new CreateFishCommand(
                 request.name(),
                 request.price(),
                 request.weightRangeFrom(),
                 request.weightRangeTo(),
                 request.amount(),
-                request.description()
-        );
+                request.location(),
+                request.description());
 
         FishDTO fish = fishService.create(cmd);
 
@@ -56,8 +54,8 @@ public class FishController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public void update(@PathVariable(name="id") Long id,
-                @RequestBody @Validated UpdateFishRequest request){
+    public void update(@PathVariable(name = "id") Long id,
+            @RequestBody @Validated UpdateFishRequest request) {
         UpdateFishCommand cmd = new UpdateFishCommand(
                 request.id(),
                 request.name(),
@@ -65,16 +63,16 @@ public class FishController {
                 request.weightRangeFrom(),
                 request.weightRangeTo(),
                 request.amount(),
-                request.description()
-        );
+                request.location(),
+                request.description());
         fishService.update(cmd);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FishDTO> findById(@PathVariable(name = "id") Long id){
+    public ResponseEntity<FishDTO> findById(@PathVariable(name = "id") Long id) {
         return fishService.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(()->ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
