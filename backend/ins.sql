@@ -1,0 +1,1 @@
+INSERT INTO table values('aaa'+'ajshdhj'+'')

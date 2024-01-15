@@ -7,13 +7,16 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '../common/button';
+import { GoogleLogin } from "@react-oauth/google";
 
 type Props = {
     onSubmit: FormEventHandler<HTMLFormElement>;
+    onSubmitGoogle: any;
 };
 
 const LoginForm = (props: Props) => {
-    const { onSubmit } = props;
+    const { onSubmit, onSubmitGoogle } = props;
+    
     return (
         <form onSubmit={onSubmit} className="space-y-3">
             <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -59,6 +62,15 @@ const LoginForm = (props: Props) => {
                             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                         </div>
                     </div>
+                </div>
+                <div className="mt-4 w-full items-center" >
+                    <GoogleLogin
+                        onSuccess={onSubmitGoogle}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                        shape="pill"
+                    />
                 </div>
                 <Button type="submit" className="mt-4 w-full" >
                     Sign in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />

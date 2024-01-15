@@ -11,6 +11,7 @@ import RegisterForm from "./RegisterForm";
 import Logo from "../common/logo";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import authReducer from "../../service/auth/authReducer";
+import { GoogleAuth } from "../../model/googleAuth";
 
 const Auth = () => {
     const [authData, setAuthData] = useState<AuthData>();
@@ -78,6 +79,34 @@ const Auth = () => {
         }
     };
 
+ 
+    const authGoogle = async (response: GoogleAuth) => {
+        console.log(response)
+        const clientId = response.clientId
+        const credential = response.credential
+        try {
+            const params = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    credential:credential
+                })
+            };
+            const endpoint = `/auth/google/${isLogin ? 'authenticate' : 'register'}`
+            await request(endpoint, params, setAuthData, handleErrorResponse(isLogin));
+        } catch (error: any) {
+            if (isLogin) {
+                error.message = "Sign in failed!";
+                setError(error.message || error);
+            } else {
+                error.message = "Sign up failed!";
+                setError(error.message || error);
+            }
+        }
+    };
+
     return (
         <>
             <main className="flex items-center justify-center md:h-screen">
@@ -89,8 +118,8 @@ const Auth = () => {
                     </div>
                     {
                         isLogin
-                            ? <LoginForm onSubmit={authHandler} />
-                            : <RegisterForm onSubmit={authHandler} />
+                            ? <LoginForm onSubmit={authHandler} onSubmitGoogle={authGoogle} />
+                            : <RegisterForm onSubmit={authHandler} onSubmitGoogle={authGoogle} />
                     }
                     {error && (
                         <>

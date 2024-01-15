@@ -2,19 +2,20 @@ package fish.app.fishecommerce.auth;
 
 import fish.app.fishecommerce.config.JwtService;
 import fish.app.fishecommerce.model.entity.User;
-import fish.app.fishecommerce.model.enums.Role;
 import fish.app.fishecommerce.model.util.auth.AuthenticationRequest;
 import fish.app.fishecommerce.model.util.auth.AuthenticationResponse;
 import fish.app.fishecommerce.model.util.auth.RegisterRequest;
 import fish.app.fishecommerce.repository.RoleRepository;
 import fish.app.fishecommerce.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -63,5 +64,29 @@ public class AuthenticationService {
                 return AuthenticationResponse.builder()
                                 .token(jwt)
                                 .build();
+        }
+
+        public AuthenticationResponse authenticateGoogle(String token) throws JSONException {
+                String[] chunks = token.split("\\.");
+                Base64.Decoder decoder = Base64.getUrlDecoder();
+                String payload = new String(decoder.decode(chunks[1]));
+
+                JSONObject payloadJson = new JSONObject(payload);
+                String email = payloadJson.getString("email");
+
+                return authenticate(new AuthenticationRequest(email, token));
+
+        }
+
+        public AuthenticationResponse registerGoogle(String token) throws JSONException {
+                System.out.println(token);
+                String[] chunks = token.split("\\.");
+                Base64.Decoder decoder = Base64.getUrlDecoder();
+                String payload = new String(decoder.decode(chunks[1]));
+
+                JSONObject payloadJson = new JSONObject(payload);
+                String email = payloadJson.getString("email");
+
+                return register(new RegisterRequest(null, null, email, token));
         }
 }

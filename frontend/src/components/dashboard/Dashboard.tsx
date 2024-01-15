@@ -15,7 +15,7 @@ const Dashboard = () => {
     const { authState } = useContext(AuthContext);
     const { t } = useTranslation('common');
     return (
-            <div className="flex h-100% flex-col md:flex-row md:overflow-hidden">
+            <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
                 <div className="w-full flex-none md:w-64">
                     <SideNav />
                 </div>

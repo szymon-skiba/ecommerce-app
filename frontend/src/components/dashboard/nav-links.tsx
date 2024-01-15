@@ -29,7 +29,7 @@ export default function NavLinks() {
                 )}
             >
                 <DocumentDuplicateIcon className="w-6" />
-                <p className="hidden md:block">{t('sidenav.products')}</p>
+                <p className="hidden md:block">{'Products'}</p>
             </Link>
             {authState.role == "ROLE_ADMIN" && (
                 <Link
@@ -43,7 +43,7 @@ export default function NavLinks() {
                     )}
                 >
                     <UserGroupIcon className="w-6" />
-                    <p className="hidden md:block">{t('sidenav.users')}</p>
+                    <p className="hidden md:block">{'Users'}</p>
                 </Link>
             )}
         </>
