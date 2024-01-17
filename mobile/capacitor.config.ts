@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'ecommerce-app',
   webDir: 'build',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'http'
   }
 };
 

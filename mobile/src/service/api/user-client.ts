@@ -2,7 +2,7 @@ import AuthContext from "../auth/AuthContextProvider";
 import { useContext } from 'react';
 import { UsersResponse } from '../../model/userResponse';
 
-const API_URL = 'http://localhost:10.0.2.2/api/v1/user';
+const API_URL = 'http://10.0.2.2:8080/api/v1/user';
 
 
 function UserClient() {
